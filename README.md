@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # HR Agent
 
 [![tests](https://github.com/HarshMaurya14/HR-Agent-/actions/workflows/ci.yml/badge.svg)](https://github.com/HarshMaurya14/HR-Agent-/actions)
@@ -145,3 +146,7 @@ To change the bot's knowledge, edit or add `.md` files in `data/hr_documents/` (
 - Email/Slack notification to the manager when a request is submitted
 - Cancel approved leave with balance restoration
 - Admin page for managing employees and holidays
+=======
+# HR-assistance-
+AI HR assistant: answers policy questions with source citations and handles leave requests with manager approval, confirmation prompts and role-based permissions. Flask, Groq LLM tool-calling, SQLite, 96 tests.
+>>>>>>> 9cdd930ef0300ad74121ffed6eddad07342f3a22
