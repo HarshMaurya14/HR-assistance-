@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Login | HR Nexus AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            color-scheme: dark;
+
+            --bg: #0b0f1f;
+            --panel: #131830;
+            --panel-2: #0f1427;
+            --line: #252c4b;
+            --ink: #e9ecfa;
+            --ink-soft: #98a1c6;
+            --iris: #7b86f2;
+            --iris-deep: #6571e6;
+            --iris-wash: #232a55;
+            --mint: #3fd0b5;
+            --warn: #fbbf6a;
+            --warn-wash: #3a2c14;
+            --shadow: 0 30px 70px -28px rgba(0, 0, 0, 0.8);
+
+            --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+            --font-body: "DM Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { min-height: 100%; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: var(--font-body);
+            color: var(--ink);
+            background:
+                radial-gradient(900px 520px at 8% -10%, #1d2554 0%, transparent 60%),
+                var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        button, input { font-family: inherit; }
+
+        /* ---------- Shell ---------- */
+        .shell {
+            width: 100%;
+            max-width: 940px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* ---------- Left: intro panel ---------- */
+        .intro {
+            padding: 40px 34px;
+            background: var(--panel-2);
+            border-right: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+        }
+
+        .brand { display: flex; align-items: center; gap: 12px; }
+
+        .brand-mark {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: var(--iris);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 23px;
+            flex-shrink: 0;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .brand p { margin: 3px 0 0; font-size: 13px; color: var(--ink-soft); }
+
+        .intro-title {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+        }
+
+        .intro-text {
+            margin: -10px 0 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--ink-soft);
+        }
+
+        .caps {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .caps li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 11px;
+            border-radius: 11px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            font-size: 13px;
+            line-height: 1.25;
+        }
+
+        .caps .ico { font-size: 16px; flex-shrink: 0; }
+
+        /* ---------- Right: form ---------- */
+        .form-side {
+            padding: 40px 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-side h2 {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .form-side .sub { margin: 6px 0 26px; font-size: 14.5px; color: var(--ink-soft); }
+
+        .field { margin-bottom: 18px; }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .input-wrap { position: relative; }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border-radius: 12px;
+            border: 1.5px solid var(--line);
+            background: var(--panel-2);
+            color: var(--ink);
+            font-size: 15.5px;
+            outline: none;
+            transition: border-color .15s, box-shadow .15s;
+        }
+
+        input::placeholder { color: var(--ink-soft); opacity: .8; }
+
+        input:focus {
+            border-color: var(--iris);
+            box-shadow: 0 0 0 4px var(--iris-wash);
+        }
+
+        #password { padding-right: 70px; }
+
+        .toggle-pass {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 6px 10px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--ink-soft);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .toggle-pass:hover { color: var(--ink); background: var(--iris-wash); }
+
+        .submit {
+            width: 100%;
+            margin-top: 6px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: var(--iris);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .15s, transform .1s;
+        }
+
+        .submit:hover:not(:disabled) { background: var(--iris-deep); }
+        .submit:active:not(:disabled) { transform: scale(.985); }
+        .submit:disabled { background: var(--line); color: var(--ink-soft); cursor: not-allowed; }
+
+        .error {
+            display: none;
+            margin-top: 16px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(251, 191, 106, .35);
+            background: var(--warn-wash);
+            color: var(--warn);
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .error.show { display: block; }
+
+        /* ---------- Demo accounts ---------- */
+        details.demo {
+            margin-top: 24px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--panel-2);
+        }
+
+        details.demo summary {
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        details.demo summary::-webkit-details-marker { display: none; }
+        details.demo summary::after { content: "+"; color: var(--ink-soft); font-size: 18px; line-height: 1; }
+        details.demo[open] summary::after { content: "–"; }
+
+        .demo-list { display: flex; flex-direction: column; gap: 6px; padding: 0 10px 10px; }
+
+        .demo-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 9px 11px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel);
+            color: var(--ink);
+            font-size: 13.5px;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color .15s, background .15s;
+        }
+
+        .demo-btn:hover { border-color: var(--iris); background: var(--iris-wash); }
+        .demo-btn small { color: var(--ink-soft); font-size: 12.5px; }
+
+        .demo-note { margin: 0; padding: 0 14px 12px; font-size: 12.5px; color: var(--ink-soft); }
+
+        :focus-visible { outline: 3px solid var(--iris); outline-offset: 2px; }
+        input:focus-visible { outline: none; }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 800px) {
+            body { padding: 16px; align-items: flex-start; }
+
+            .shell { grid-template-columns: 1fr; margin-top: 4vh; }
+            .intro { display: none; }
+            .form-side { padding: 32px 24px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition: none !important; animation: none !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="shell">
+
+        <!-- Left: what the assistant does -->
+        <section class="intro" aria-label="About HR Nexus AI">
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true">🤖</div>
+                <div>
+                    <h1>HR Nexus AI</h1>
+                    <p>AI-Powered HR Assistant</p>
+                </div>
+            </div>
+
+            <h2 class="intro-title">Your HR questions, answered in one chat.</h2>
+
+            <p class="intro-text">
+                Log in to check your leave balance and ask about HR policies, benefits, insurance and working hours.
+            </p>
+
+            <ul class="caps">
+                <li><span class="ico">🏖️</span>Leave Balance</li>
+                <li><span class="ico">📋</span>Leave Policies</li>
+                <li><span class="ico">🏥</span>Sick Leave Information</li>
+                <li><span class="ico">🛡️</span>Insurance &amp; Benefits</li>
+                <li><span class="ico">🕒</span>Working Hours</li>
+                <li><span class="ico">📄</span>HR Policies</li>
+            </ul>
+        </section>
+
+        <!-- Right: login form -->
+        <section class="form-side">
+
+            <h2>Welcome back</h2>
+            <p class="sub">Log in with your employee ID to continue.</p>
+
+            <form id="loginForm" novalidate>
+
+                <div class="field">
+                    <label for="employee_id">Employee ID</label>
+                    <input
+                        type="text"
+                        id="employee_id"
+                        placeholder="For example, EMP001"
+                        autocomplete="username"
+                        autocapitalize="characters"
+                        spellcheck="false"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <div class="input-wrap">
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <button type="button" class="toggle-pass" id="togglePass" aria-label="Show password" aria-pressed="false">Show</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit" id="submitButton">Log in</button>
+
+                <div class="error" id="errorMessage" role="alert"></div>
+
+            </form>
+
+            {% if demo_mode %}
+            <details class="demo">
+                <summary>Demo accounts</summary>
+                <div class="demo-list">
+                    <button type="button" class="demo-btn" data-id="EMP001" data-pass="harsh123">
+                        <span>EMP001 <small>harsh123</small></span><small>Use</small>
+                    </button>
+                    <button type="button" class="demo-btn" data-id="EMP002" data-pass="rahul123">
+                        <span>EMP002 <small>rahul123</small></span><small>Use</small>
+                    </button>
+                    <button type="button" class="demo-btn" data-id="EMP003" data-pass="priya123">
+                        <span>EMP003 <small>priya123</small></span><small>Use</small>
+                    </button>
+                </div>
+                <p class="demo-note">Select an account to fill in the form.</p>
+            </details>
+            {% endif %}
+
+        </section>
+
+    </main>
+
+
+    <script>
+        const form          = document.getElementById("loginForm");
+        const idInput       = document.getElementById("employee_id");
+        const passInput     = document.getElementById("password");
+        const togglePass    = document.getElementById("togglePass");
+        const submitButton  = document.getElementById("submitButton");
+        const errorMessage  = document.getElementById("errorMessage");
+
+        function showError(text) {
+            errorMessage.textContent = "⚠️ " + text;
+            errorMessage.classList.add("show");
+        }
+
+        function hideError() {
+            errorMessage.textContent = "";
+            errorMessage.classList.remove("show");
+        }
+
+        function setLoading(state) {
+            submitButton.disabled = state;
+            submitButton.textContent = state ? "Logging in..." : "Log in";
+        }
+
+        // Show / hide password
+        togglePass.addEventListener("click", function () {
+            const hidden = passInput.type === "password";
+            passInput.type = hidden ? "text" : "password";
+            togglePass.textContent = hidden ? "Hide" : "Show";
+            togglePass.setAttribute("aria-label", hidden ? "Hide password" : "Show password");
+            togglePass.setAttribute("aria-pressed", String(hidden));
+        });
+
+        // Demo accounts fill the form
+        document.querySelectorAll(".demo-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                idInput.value = btn.dataset.id;
+                passInput.value = btn.dataset.pass;
+                hideError();
+                submitButton.focus();
+            });
+        });
+
+        // Clear the error once the user starts typing again
+        idInput.addEventListener("input", hideError);
+        passInput.addEventListener("input", hideError);
+
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            hideError();
+
+            const employeeId = idInput.value.trim().toUpperCase();
+            const password   = passInput.value.trim();
+
+            if (!employeeId || !password) {
+                showError("Please enter your employee ID and password.");
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        employee_id: employeeId,
+                        password: password
+                    })
+                });
+
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch (parseError) {
+                    data = null;
+                }
+
+                if (!response.ok) {
+                    const reason = data && typeof data.error === "string" && data.error.trim()
+                        ? data.error
+                        : "Login failed. Please check your details and try again.";
+                    showError(reason);
+                    setLoading(false);
+                    return;
+                }
+
+                // Login successful
+                window.location.href = "/";
+
+            } catch (networkError) {
+                showError("Unable to connect to the server. Please try again.");
+                setLoading(false);
+            }
+        });
+
+        idInput.focus();
+    </script>
+
+</body>
+
+</html>
